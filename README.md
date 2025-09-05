@@ -1,5 +1,8 @@
 # mailstorm Service
 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/habahabai/mailstorm/total?style=plastic)
+
+
 **mailstorm** is a service designed for educational purposes, providing tools for email bombing and related functionalities. It is intended for security researchers and penetration testers to understand email server resilience and perform stress tests on email infrastructure.
 
 ## Access Methods
