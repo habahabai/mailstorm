@@ -1,0 +1,34 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Run build.bat
+      shell: cmd
+      run: build.bat
+
+    - name: Get version or use default
+      id: version
+      run: |
+        echo "version=latest" >> $GITHUB_OUTPUT
+
+    - name: Create or Update GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: latest
+        name: Latest Build
+        files: dist/*.exe
+        prerelease: false
+        draft: false
+        overwrite: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
