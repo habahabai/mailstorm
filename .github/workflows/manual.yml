@@ -1,4 +1,4 @@
-name: Build Executable
+name: Build with Batch Script
 
 on:
   push:
@@ -7,31 +7,20 @@ on:
     branches: [ main ]
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-
-    - name: Install dependencies
+    - name: Run build.bat
+      shell: cmd
       run: |
-        pip install --upgrade pip
-        pip install pyinstaller
+        build.bat
 
-    - name: Build with PyInstaller
-      run: |
-        pyinstaller --onefile ^
-          --add-data "tor-expert-bundle-windows-i686-13.5.3;tor-expert-bundle-windows-i686-13.5.3" ^
-          main.py
-
-    - name: Upload executable artifact
-      uses: actions/upload-artifact@v4
+    - name: Upload executable
+      uses: actions/upload-artifact@v3
       with:
         name: built-executable
         path: dist/*.exe
