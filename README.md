@@ -2,7 +2,6 @@
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/habahabai/mailstorm/total?style=plastic)
 
-
 **mailstorm** is a service designed for educational purposes, providing tools for email bombing and related functionalities. It is intended for security researchers and penetration testers to understand email server resilience and perform stress tests on email infrastructure.
 
 ## Access Methods
@@ -35,11 +34,48 @@ This is a desktop application that provides a secure and isolated environment fo
 *   Windows operating system.
 *   The application will automatically attempt to install the "Microsoft Edge WebView2 runtime" if it is not already installed.
 
-**How to Run (Desktop Application):**
-1.  Install the required Python packages: `pip install -r requirements.txt`
-2.  Run the application: `python main.py`
+### Download
 
-A `build.bat` script is also included, which can be used to create a standalone executable file.
+You can download the compiled executable for Windows from the following link:
+
+[Download main.exe](https://github.com/habahabai/mailstorm/releases/download/v0.1/main.exe)
+
+### Building from Source
+
+To build the application from source, follow these steps:
+
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/habahabai/mailstorm.git
+    cd mailstorm
+    ```
+
+2.  **Create and activate a virtual environment:**
+    ```sh
+    python -m venv venv
+    # On Windows
+    venv\Scripts\activate
+    # On macOS/Linux
+    # source venv/bin/activate
+    ```
+
+3.  **Install the required dependencies:**
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4.  **Run the build script:**
+    ```sh
+    build.bat
+    ```
+    This will create a standalone executable file in the `dist` directory.
+
+### Running from Source (Without Building)
+
+If you want to run the application directly from the source code without compiling it, follow steps 1-3 from the "Building from Source" section and then run:
+```sh
+python main.py
+```
 
 ## Disclaimer
 
