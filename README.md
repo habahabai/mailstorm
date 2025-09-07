@@ -8,21 +8,27 @@
 
 The mailstorm service can be accessed through various interfaces, offering flexibility and convenience:
 
-### 1. Telegram Bot
+### 1. direct web Access
+
+The mailstorm service can be easily accessed directly using any working browser via the following link:
+
+**website link:** [http://147.135.128.19:20196/](http://147.135.128.19:20196/)
+
+### 2. Telegram Bot
 
 Access the mailstorm service directly through our Telegram bot. This provides a convenient way to interact with the service from your mobile device or any Telegram client.
 
 **Telegram Bot Username:** [@mailstorm_emailbomber_bot](https://t.me/mailstorm_emailbomber_bot)
 
-### 2. Discord Server
+### 3. Discord Server
 
 Join our community on Discord to connect with other users, get support.
 
 **Discord Invite Link:** [https://discord.gg/TNeDd7jsuh](https://discord.gg/TNeDd7jsuh)
 
-### 3. mailstorm Desktop Application
+### 4. mailstorm Desktop Application
 
-This is a desktop application that provides a secure and isolated environment for accessing the mailstorm web application, which is hosted on the Tor network. It bundles a Tor client to ensure all traffic to the service is routed anonymously.
+This is a desktop application (exe) that provides a secure and isolated environment for accessing the mailstorm web application, which is hosted on the Tor network. It bundles a Tor client to ensure all traffic to the service is routed anonymously.
 
 **Features of the Desktop Application:**
 *   Direct access to the "mailstorm" service via a dedicated webview.
