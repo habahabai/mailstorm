@@ -80,3 +80,11 @@ python main.py
 ## Disclaimer
 
 This tool is for educational purposes only. The developers of this tool are not responsible for any misuse of this tool. It is the user's responsibility to use this tool in a responsible and ethical manner.
+
+## Reseller API
+
+We now offer a reseller API for businesses and individuals who want to incorporate our email functionality into their own services. Resellers can purchase access to our API for reselling purposes, allowing them to offer email services to their own customers.
+
+For more information about our API, including endpoints, authentication, and usage limits, please refer to our [API documentation](./api.md).
+
+To get started as a reseller, join our Discord server: [https://discord.gg/TNeDd7jsuh](https://discord.gg/TNeDd7jsuh)
