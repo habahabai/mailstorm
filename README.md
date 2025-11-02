@@ -38,7 +38,7 @@ This is a desktop application (exe) that provides a secure and isolated environm
 
 You can download the compiled executable for Windows from the following link:
 
-[Download main.exe](https://github.com/habahabai/mailstorm/releases/download/v0.1/main.exe)
+[Download main.exe](https://github.com/habahabai/mailstorm/releases/download/v0.5/main.exe)
 
 ### Building from Source
 
