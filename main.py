@@ -123,7 +123,7 @@ def main():
     tor_process = None
     try:
         tor_process = launch_tor()
-        onion_url = "http://imux3xyaclb655flrnkmvudyt4k3m37tw437geyvhlrg4e75flhvb5yd.onion"
+        onion_url = "http://snzjnzdgfel2h2z3kfd34cvv6szdjfwboynqctjln7ze4ythgrllixyd.onion"
 
         os.environ['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS'] = "--proxy-server=socks5://127.0.0.1:9050"
 
