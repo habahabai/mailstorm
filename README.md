@@ -1,5 +1,5 @@
 # email storage filler and mailstorm
-email storage filler -sends mails with attatchments to fill storage e.g 15gb dtorage which google provides for free
+email storage filler -sends mails with attatchments to fill storage e.g 15gb storage which google provides for free
 contact on discord to try/use it. these days my focus is more on email storage filler than mailstorm
 Mailstorm
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/habahabai/mailstorm/total?style=plastic)
