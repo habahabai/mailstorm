@@ -1,5 +1,7 @@
-# mailstorm Service
-
+# email storage filler and mailstorm
+email storage filler -sends mails with attatchments to fill storage e.g 15gb dtorage which google provides for free
+contact on discord to try/use it. these days my focus is more on email storage filler than mailstorm
+Mailstorm
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/habahabai/mailstorm/total?style=plastic)
 
 **mailstorm** is a service designed for educational purposes, providing tools for email bombing and related functionalities. It is intended for security researchers and penetration testers to understand email server resilience and perform stress tests on email infrastructure.
