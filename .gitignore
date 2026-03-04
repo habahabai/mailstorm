@@ -1,0 +1,22 @@
+# Build artifacts
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
+
+# Backup files
+*.backup
+
+# Tor bundles (too large for git)
+tor/
+*.tar.gz
+
+# Temporary files
+data/
+debug/
+docs/conjure.txt
+docs/libevent.txt
+docs/lyrebird.txt
+docs/openssl.txt
+docs/tor.txt

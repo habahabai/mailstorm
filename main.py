@@ -3,20 +3,32 @@ import time
 import os
 import sys
 import webview
-import winreg
 import platform
 import tempfile
 import requests
 
-TOR_PATH_RELATIVE = "tor-expert-bundle-windows-i686-13.5.3/tor-expert-bundle-windows-i686-13.5.3/tor/tor.exe"
+# Platform-specific imports
+if platform.system() == 'Windows':
+    import winreg
+
+# Platform-specific Tor path
+if platform.system() == 'Windows':
+    TOR_PATH_RELATIVE = "tor-expert-bundle-windows-i686-13.5.3/tor-expert-bundle-windows-i686-13.5.3/tor/tor.exe"
+else:
+    TOR_PATH_RELATIVE = "tor/tor"
 
 def get_webview2_version():
     """
     Detects if the WebView2 runtime is installed and returns its version.
     Checks the Windows Registry for both machine-wide and user-specific installations.
+    Only runs on Windows.
     """
+    if platform.system() != 'Windows':
+        # On Linux, webview uses GTK and doesn't need WebView2
+        return "N/A (Linux)"
+
     webview2_guid = "{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"
-    
+
     is_64bit = platform.machine().endswith('64')
     base_paths = [r"SOFTWARE\Microsoft\EdgeUpdate\Clients"]
     if is_64bit:
@@ -42,9 +54,14 @@ def get_webview2_version():
 def install_webview2_and_relaunch():
     """
     Downloads, silently installs the WebView2 runtime, and prompts the user to relaunch.
+    Only runs on Windows.
     """
+    if platform.system() != 'Windows':
+        print("WebView2 installation not needed on Linux.")
+        return
+
     print("Microsoft Edge WebView2 runtime is required. It will be downloaded and installed now.")
-    
+
     installer_url = "https://go.microsoft.com/fwlink/p/?LinkId=2124703"
     temp_dir = tempfile.gettempdir()
     installer_path = os.path.join(temp_dir, "MicrosoftEdgeWebview2Setup.exe")
@@ -64,7 +81,7 @@ def install_webview2_and_relaunch():
             [installer_path, '/silent', '/install'],
             check=True
         )
-        
+
         print("WebView2 installation complete.")
 
     except Exception as e:
@@ -98,11 +115,15 @@ def launch_tor():
         print(f"Error: Tor executable not found at {tor_exe_path}")
         sys.exit(1)
 
-    startupinfo = subprocess.STARTUPINFO()
-    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    startupinfo.wShowWindow = subprocess.SW_HIDE
-
-    tor_process = subprocess.Popen([tor_exe_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, startupinfo=startupinfo)
+    # Platform-specific process creation
+    if platform.system() == 'Windows':
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
+        tor_process = subprocess.Popen([tor_exe_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, startupinfo=startupinfo)
+    else:
+        # Linux doesn't need startupinfo
+        tor_process = subprocess.Popen([tor_exe_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
     print("Waiting for Tor to bootstrap...")
     while True:
@@ -125,10 +146,16 @@ def main():
         tor_process = launch_tor()
         onion_url = "http://snzjnzdgfel2h2z3kfd34cvv6szdjfwboynqctjln7ze4ythgrllixyd.onion"
 
-        os.environ['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS'] = "--proxy-server=socks5://127.0.0.1:9050"
+        # Set proxy for webview
+        if platform.system() == 'Windows':
+            os.environ['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS'] = "--proxy-server=socks5://127.0.0.1:9050"
+        else:
+            # On Linux, we may need to set environment variables for GTK webkit
+            os.environ['http_proxy'] = 'socks5://127.0.0.1:9050'
+            os.environ['https_proxy'] = 'socks5://127.0.0.1:9050'
 
         print(f"Opening webview for: {onion_url}")
-        webview.create_window(title="mailstorm desktop",fullscreen=False,maximized=True , url=onion_url)
+        webview.create_window(title="mailstorm desktop", fullscreen=False, maximized=True, url=onion_url)
         webview.start(private_mode=False)
 
     except KeyboardInterrupt:
@@ -143,8 +170,12 @@ def main():
             print("Tor process terminated.")
 
 if __name__ == "__main__":
-    if not get_webview2_version():
+    version = get_webview2_version()
+    if platform.system() == 'Windows' and not version:
         install_webview2_and_relaunch()
     else:
-        print("Microsoft Edge WebView2 runtime is already installed.")
+        if platform.system() == 'Windows':
+            print("Microsoft Edge WebView2 runtime is already installed.")
+        else:
+            print(f"Running on {platform.system()}. Using native webview.")
         main()
